@@ -31,12 +31,12 @@ public class UmengPushModule extends ReactContextBaseJavaModule implements Lifec
     private UmengPushApplication mPushApplication;
     private ReactApplicationContext mReactContext;
 
-    public UmengPushModule(ReactApplicationContext reactContext) {
+    public UmengPushModule(ReactApplicationContext reactContext, UmengPushApplication umengPushApplication) {
         super(reactContext);
         mReactContext = reactContext;
         //设置module给application
-        UmengPushApplication application = (UmengPushApplication)reactContext.getBaseContext();
-        mPushApplication = application;
+//        UmengPushApplication application = (UmengPushApplication)reactContext.getBaseContext();
+        mPushApplication = umengPushApplication;
         //添加监听
         mReactContext.addLifecycleEventListener(this);
     }

@@ -15,7 +15,7 @@ import com.umeng.message.entity.UMessage;
 /**
  * Created by user on 16/4/20.
  */
-public class UmengPushApplication extends Application {
+public class UmengPushApplication {
     protected static final String TAG = UmengPushModule.class.getSimpleName();
     protected UmengPushModule mPushModule;
     protected String mRegistrationId;
@@ -24,12 +24,6 @@ public class UmengPushApplication extends Application {
     private UMessage tmpMessage;
     //应用退出时，打开推送通知时临时保存的事件
     private String tmpEvent;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        enablePush();
-    }
 
     protected void setmPushModule(UmengPushModule module) {
         mPushModule = module;
@@ -42,8 +36,8 @@ public class UmengPushApplication extends Application {
         }
     }
     //开启推送
-    private void enablePush() {
-        mPushAgent = PushAgent.getInstance(this);
+    public void enablePush(Context ctx) {
+        mPushAgent = PushAgent.getInstance(ctx);
         mPushAgent.enable(new IUmengRegisterCallback() {
             @Override
             public void onRegistered(final String s) {
@@ -105,12 +99,12 @@ public class UmengPushApplication extends Application {
             }
         });
 
-        //设置debug状态
-        if(BuildConfig.DEBUG) {
-            mPushAgent.setDebugMode(true);
-        }
         //前台不显示通知
         mPushAgent.setNotificaitonOnForeground(false);
+    }
+
+    public void setDebugMode(boolean debug){
+        mPushAgent.setDebugMode(debug);
     }
 
     /**

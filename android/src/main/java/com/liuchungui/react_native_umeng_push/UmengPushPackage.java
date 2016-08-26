@@ -14,11 +14,19 @@ import java.util.List;
  * Created by user on 16/4/7.
  */
 public class UmengPushPackage implements ReactPackage {
+
+    private UmengPushApplication umengPushApplication;
+
+    public UmengPushPackage(UmengPushApplication umengPushApplication){
+        super();
+        this.umengPushApplication = umengPushApplication;
+    }
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.asList(new NativeModule[]{
                 // Modules from third-party
-                new UmengPushModule(reactContext),
+                new UmengPushModule(reactContext, this.umengPushApplication),
         });
     }
 
